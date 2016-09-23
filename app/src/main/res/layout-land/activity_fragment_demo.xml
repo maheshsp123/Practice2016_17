@@ -15,12 +15,22 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/accent_material_dark"></FrameLayout>
+        android:background="@color/accent_material_dark">
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="bvb.android.example.com.practice2016_17.IndexFragment"
+            android:id="@+id/fragment"
+            android:layout_gravity="left|top"
+            tools:layout="@layout/fragment_index" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_weight="2"
-        android:background="#f9f2f2"></FrameLayout>
+        android:background="#f9f2f2"
+        android:id="@+id/main_fragment2"></FrameLayout>
 </LinearLayout>

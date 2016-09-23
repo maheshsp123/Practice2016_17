@@ -27,7 +27,7 @@ public class ListViewActivity extends AppCompatActivity {
             arrayList.add("loginDemoActivity");             arrayList.add("secondActivity");
             arrayList.add("MainActivity");            arrayList.add("httpRequestActivity");
             arrayList.add("SettingsActivity");             arrayList.add("ReadPreferenceActivity");
-            arrayList.add("java");            arrayList.add("Database management system");
+            arrayList.add("FragmentDemoActivity");            arrayList.add("Database management system");
         arrayAdapter=new ArrayAdapter<String>(this,R.layout.listview_item2,R.id.listItemId2,arrayList);
         listView=(ListView)findViewById(R.id.listViewId);
         listView.setAdapter(arrayAdapter);
