@@ -1,0 +1,4 @@
+TASK bvb.android.example.com.practice2016_17 id=7
+  ACTIVITY bvb.android.example.com.practice2016_17/.loginDemoActivity 413c5cc8 pid=(not running)
+
+  ACTIVITY bvb.android.example.com.practice2016_17/.MainActivity 412301d0 pid=(not running)

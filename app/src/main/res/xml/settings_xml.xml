@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_music"
+        android:title="@string/pref_music"
+        android:summary="@string/pref_music_summ"
+        android:defaultValue="true" />
+    <ListPreference
+
+        android:key="pref_level"
+        android:title="@string/pref_level"
+        android:dialogTitle="@string/pref_level_summ"
+        android:entries="@array/pref_level_entries"
+        android:entryValues="@array/pref_level_values"
+        android:defaultValue="@string/pref_level_default" />
+
+</PreferenceScreen>
