@@ -37,7 +37,8 @@ public class httpRequestActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             Log.i(LOG_CAT, "doInBackground");
             try {
-                URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q={Hubli},{IN}&APPID=e90095bc39b042859aa8d8fe6a60b72b");
+                //put your API key here in place of 1111111111111111111111111111111
+                URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q={Hubli},{IN}&APPID=11111111111111111111111111111");
             }
             catch (MalformedURLException e){
                 Log.i(LOG_CAT, e.toString());

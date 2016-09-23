@@ -27,6 +27,7 @@
         <activity android:name=".httpRequestActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ReadPreferenceActivity" />
+        <activity android:name=".FragmentDemoActivity"></activity>
     </application>
 
 </manifest>
