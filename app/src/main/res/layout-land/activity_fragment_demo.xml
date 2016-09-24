@@ -11,11 +11,12 @@
     android:orientation="horizontal"
     android:weightSum="3">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/accent_material_dark">
+        android:background="@color/accent_material_dark"
+        android:orientation="vertical">
 
         <fragment
             android:layout_width="wrap_content"
@@ -24,7 +25,13 @@
             android:id="@+id/fragment"
             android:layout_gravity="left|top"
             tools:layout="@layout/fragment_index" />
-    </FrameLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="change Fragment"
+            android:id="@+id/changeFragButton" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="0dp"
