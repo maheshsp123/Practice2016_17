@@ -27,7 +27,10 @@
         <activity android:name=".httpRequestActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ReadPreferenceActivity" />
-        <activity android:name=".FragmentDemoActivity"></activity>
+        <activity android:name=".FragmentDemoActivity" />
+        <activity android:name=".LP_minor1_2c" />
+        <activity android:name=".Student_Deailed_Activity" />
+        <activity android:name=".Staff_Detailed_Activity"></activity>
     </application>
 
 </manifest>
