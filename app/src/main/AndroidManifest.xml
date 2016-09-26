@@ -30,7 +30,8 @@
         <activity android:name=".FragmentDemoActivity" />
         <activity android:name=".LP_minor1_2c" />
         <activity android:name=".Student_Deailed_Activity" />
-        <activity android:name=".Staff_Detailed_Activity"></activity>
+        <activity android:name=".Staff_Detailed_Activity" />
+        <activity android:name=".lp_minor1_1c_Activity"></activity>
     </application>
 
 </manifest>
