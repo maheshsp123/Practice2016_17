@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Course 1 Details:"
-            android:id="@+id/textView17" />
+            android:id="@+id/subTitleTextViewId" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -42,22 +42,29 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2"
+                android:id="@+id/CieEditTextid"
                 android:layout_gravity="center_horizontal"
                 android:hint="CIE marks" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText3"
+                android:id="@+id/SeeEditTextId"
                 android:layout_gravity="center_horizontal"
                 android:hint="SEE marks" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/creditsEditTextId"
+                android:layout_gravity="center_horizontal"
+                android:hint="Credits" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="submit"
-                android:id="@+id/button" />
+                android:id="@+id/courseSubmitButtonId" />
         </LinearLayout>
     </LinearLayout>
 
@@ -66,5 +73,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#daf4f9"></LinearLayout>
+        android:background="#daf4f9">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Click Following Button to know your SGP"
+            android:id="@+id/textView18"
+            android:gravity="center" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SGP"
+            android:id="@+id/SGPbuttonId" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Your SGP= "
+            android:id="@+id/SgpResultTextViewId"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 </LinearLayout>
