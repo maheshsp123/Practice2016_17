@@ -19,8 +19,8 @@ public class loginDemoActivity extends AppCompatActivity {
     EditText userNameED_ref;
     EditText passwordED_ref;
     Button submitButton_ref;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+        SharedPreferences sharedPreferences;
+        SharedPreferences.Editor editor;
     final String myPrefenceFileName="PracticePreferences";
     final String rememberKey="Remember";
     final String usernameKey="UserName";

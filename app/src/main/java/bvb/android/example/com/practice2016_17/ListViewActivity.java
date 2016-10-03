@@ -28,10 +28,12 @@ public class ListViewActivity extends AppCompatActivity {
             arrayList.add("MainActivity");            arrayList.add("httpRequestActivity");
             arrayList.add("SettingsActivity");             arrayList.add("ReadPreferenceActivity");
             arrayList.add("FragmentDemoActivity");            arrayList.add("LP_minor1_2c");
-            arrayList.add("lp_minor1_1c_Activity");
-        arrayAdapter=new ArrayAdapter<String>(this,R.layout.listview_item2,R.id.listItemId2,arrayList);
-        listView=(ListView)findViewById(R.id.listViewId);
-        listView.setAdapter(arrayAdapter);
+            arrayList.add("lp_minor1_1c_Activity");     arrayList.add("DbTest1Activity");
+            arrayAdapter=new ArrayAdapter<String>
+                    (this,R.layout.listview_item2,R.id.listItemId2,arrayList);
+
+            listView=(ListView)findViewById(R.id.listViewId);
+            listView.setAdapter(arrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
