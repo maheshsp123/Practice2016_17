@@ -40,6 +40,16 @@ public class DbTest1Activity extends AppCompatActivity {
             //now adding a row through user defined method
             addRow();
 
+            //query location table through user defined method
+            Cursor c2=getAllRowsOfLocationTable();
+            c2.moveToFirst();
+            Log.i(LOG_CAT, "table = Location rows as follows");
+            do {
+                Log.i(LOG_CAT, "id="+c2.getInt(0)+"setting= "+c2.getString(1)+"  city name="+c2.getString(2)
+                        +"  latitude="+c2.getDouble(3)+"  longitude="+c2.getDouble(4));
+            } while (c.moveToNext());
+
+
         }catch (Exception e){
             Log.i(LOG_CAT, e.getMessage());
 
@@ -61,5 +71,21 @@ public class DbTest1Activity extends AppCompatActivity {
         // Verify we got a row back.
         if(locationRowId != -1) Log.i(LOG_CAT,"location table row added");
             else Log.i(LOG_CAT,"adding row failed location table");
+    }
+
+    Cursor getAllRowsOfLocationTable(){
+        // Query the database and receive a Cursor back
+        // A cursor is your primary interface to the query results.
+        Cursor cursor = db.query(
+                WeatherContract.LocationEntry.TABLE_NAME,  // Table to Query
+                null, // all columns
+                null, // Columns for the "where" clause
+                null, // Values for the "where" clause
+                null, // columns to group by
+                null, // columns to filter by row groups
+                null // sort order
+        );
+
+        return  cursor;
     }
 }
