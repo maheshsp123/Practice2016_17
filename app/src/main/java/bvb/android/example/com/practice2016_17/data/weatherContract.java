@@ -5,9 +5,9 @@ import android.provider.BaseColumns;
 /**
  * Created by msp on 03-Oct-16.
  */
-public class weatherContract {
+public class WeatherContract {
 
-    class LocationEntry implements BaseColumns {
+    public class LocationEntry implements BaseColumns {
         // Table name
         public static final String TABLE_NAME="location";
         // The location setting string is what will be sent to openweathermap
