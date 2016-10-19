@@ -25,11 +25,12 @@ public class ListViewActivity extends AppCompatActivity {
         thisActivityReference=this;
         arrayList=new ArrayList<String>();
             arrayList.add("loginDemoActivity");             arrayList.add("secondActivity");
-            arrayList.add("MainActivity");            arrayList.add("httpRequestActivity");
+            arrayList.add("MainActivity");
             arrayList.add("SettingsActivity");             arrayList.add("ReadPreferenceActivity");
             arrayList.add("FragmentDemoActivity");            arrayList.add("LP_minor1_2c");
             arrayList.add("lp_minor1_1c_Activity");     arrayList.add("DbTest1Activity");
-            arrayAdapter=new ArrayAdapter<String>
+            arrayList.add("httpRequestActivity");   arrayList.add("contentProviderTest1Activity");
+        arrayAdapter=new ArrayAdapter<String>
                     (this,R.layout.listview_item2,R.id.listItemId2,arrayList);
 
             listView=(ListView)findViewById(R.id.listViewId);
