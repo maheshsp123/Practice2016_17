@@ -47,7 +47,8 @@ public class httpRequestActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             try {
                 //Replace the API key i.e &APPID=?
-                url = new URL("http://api.openweathermap.org/data/2.5/weather?q=hubli,IN&APPID=11111111111111111111111111");
+                url = new URL
+                        ("http://api.openweathermap.org/data/2.5/weather?q=hubli,IN&APPID=e90095bc39b042859aa8d8fe6a60b72b");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
