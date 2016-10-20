@@ -2,6 +2,10 @@ package bvb.android.example.com.practice2016_17.data;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -126,5 +130,98 @@ public class WeatherContract {
         LocationEntry.logAllMembersAndFunctionsValues();
         WeatherEntry.logAllMembersAndFunctionsValues();
 
+
+    }
+
+    public static void rawInsertTestRows(Context context)
+    {
+
+
+        rawInsertTestLocationRows(context,12345,"south Pole",46.7488,129.353);
+        rawInsertTestLocationRows(context,6411,"hubli",15.35,75.17);
+
+        rawInsertTestWeatherRows(context,3,1419033600L, 1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
+
+        logAllTableRows(context);
+
+    }
+    public static void rawInsertTestLocationRows(Context context,int column1,String column2, double column3,double column4){
+        SQLiteDatabase db= new WeatherDbHelper(context).getWritableDatabase();
+        long locationRowId;
+        ContentValues testValues;
+
+
+        //inserting location table row
+        testValues = new ContentValues();
+        testValues.put(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING, column1);
+        testValues.put(WeatherContract.LocationEntry.COLUMN_CITY_NAME, column2);
+        testValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LAT, column3);
+        testValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LONG, column4);
+        //Insert ContentValues into database and get a row ID back
+        locationRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, testValues);
+        // Verify we got a row back.
+        if(locationRowId != -1) Log.i("Db","location table row added "+locationRowId);
+        else Log.i("Db","adding row failed location table");
+
+        db.close();
+    }
+
+    public static void rawInsertTestWeatherRows(Context context,int column1,Long column2, double column3,double column4,double column5
+    ,int column6,int column7,String column8,double column9,int column10){
+        SQLiteDatabase db= new WeatherDbHelper(context).getWritableDatabase();
+        long weatherRowId;
+        ContentValues weatherValues;
+
+        weatherValues=new ContentValues();
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_LOC_KEY, column1);//locationRowId
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DATE, column2);//TEST_DATE
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DEGREES, column3);
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY, column4);
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE, column5);
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP, column6);
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP, column7);
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_SHORT_DESC,column8 );//Asteroids
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED, column9);//5.5
+        weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID, column10);//321
+        //Insert ContentValues into database and get a row ID back
+        weatherRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, weatherValues);
+        // Verify we got a row back.
+        if(weatherRowId != -1) Log.i("Db","weather table row added "+weatherRowId);
+        else Log.i("Db","adding row failed location table");
+
+        db.close();
+
+    }
+
+    public static  void logAllTableRows(Context context){
+        SQLiteDatabase db= new WeatherDbHelper(context).getWritableDatabase();
+        Cursor c;
+        StringBuffer temp;
+
+        Log.i("Db", "Location Rows*************");
+        c = db.rawQuery("SELECT * FROM location", null);
+        temp=new StringBuffer();
+
+        if (c.moveToFirst()) {
+            Log.i("Db", c.getString(0));
+        }
+        do {
+            for(int i=0;i<=4;i++)
+                temp.append(" "+c.getString(i));
+            Log.i("Db", temp.toString());
+        } while (c.moveToNext());
+
+        Log.i("Db", "Weather Rows*************");
+        c = db.rawQuery("SELECT * FROM weather", null);
+        temp=new StringBuffer();
+
+        if (c.moveToFirst()) {
+            Log.i("Db", c.getString(0));
+        }
+        do {
+            for(int i=0;i<=4;i++)
+                temp.append(" "+c.getString(i));
+            Log.i("Db", temp.toString());
+        } while (c.moveToNext());
     }
 }
