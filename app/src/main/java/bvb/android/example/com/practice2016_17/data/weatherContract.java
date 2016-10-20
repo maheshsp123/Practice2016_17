@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.format.Time;
 import android.util.Log;
 
 /**
@@ -20,11 +21,13 @@ public class WeatherContract {
     // relationship between a domain name and its website.  A convenient string to use for the
     // content authority is the package name for the app, which is guaranteed to be unique on the
     // device.
-    public static final String CONTENT_AUTHORITY = "bvb.android.example.com.practice2016_17";
+    public static final String CONTENT_AUTHORITY =
+            "bvb.android.example.com.practice2016_17";
 
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final Uri BASE_CONTENT_URI =
+            Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // Possible paths (appended to base content URI for possible URI's)
     // For instance, content://com.example.android.sunshine.app/weather/ is a valid path for
@@ -37,12 +40,17 @@ public class WeatherContract {
     public static class LocationEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
+                BASE_CONTENT_URI.buildUpon()
+                        .appendPath(PATH_LOCATION).build();
 
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_DIR_BASE_TYPE +
+                        "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_LOCATION;
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE +
+                        "/" + CONTENT_AUTHORITY + "/" +
+                        PATH_LOCATION;
 
         // Table name
         public static final String TABLE_NAME="location";
@@ -113,13 +121,53 @@ public class WeatherContract {
         // Degrees are meteorological degrees (e.g, 0 is north, 180 is south).  Stored as floats.
         public static final String COLUMN_DEGREES = "degrees";
 
+        public static Uri buildWeatherUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
 
+        /*
+            Student: This is the buildWeatherLocation function you filled in.
+         */
+        public static Uri buildWeatherLocation(String locationSetting) {
+            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
+        }
+
+        public static Uri buildWeatherLocationWithStartDate(
+                String locationSetting, long startDate) {
+            long normalizedDate = normalizeDate(startDate);
+            return CONTENT_URI.buildUpon().appendPath(locationSetting)
+                    .appendQueryParameter(COLUMN_DATE, Long.toString(normalizedDate)).build();
+        }
+
+        public static Uri buildWeatherLocationWithDate(String locationSetting, long date) {
+            return CONTENT_URI.buildUpon().appendPath(locationSetting)
+                    .appendPath(Long.toString(normalizeDate(date))).build();
+        }
 
         public static void logAllMembersAndFunctionsValues(){
             Log.i("","weatherEntry class---------");
-            Log.i("CONTENT_URI",""+CONTENT_URI.toString());
+            Log.i("CONTENT_URI =",""+CONTENT_URI.toString());
+            Log.i("CONTENT_TYPE =",""+CONTENT_TYPE.toString());
+            Log.i("CONTENT_ITEM_TYPE =",""+CONTENT_ITEM_TYPE.toString());
+            Log.i("buildWeatherUri() =",""+buildWeatherUri(94043).toString());
+            Log.i("buildWeatherLocation()=",""+buildWeatherLocation("64111" ).toString());
+            Log.i("build We Lo st date()=",""+buildWeatherLocationWithStartDate("64111", 14351040000L ).toString());
+            Log.i("build We Lo date()=",""+buildWeatherLocationWithDate("64111", 14351040000L ).toString());
+
+
+
 
         }
+    }
+
+    // To make it easy to query for the exact date, we normalize all dates that go into
+    // the database to the start of the the Julian day at UTC.
+    public static long normalizeDate(long startDate) {
+        // normalize the start date to the beginning of the (UTC) day
+        Time time = new Time();
+        time.set(startDate);
+        int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+        return time.setJulianDay(julianDay);
     }
 
     public static void logAllMembersAndFunctionsValues(){
@@ -140,7 +188,7 @@ public class WeatherContract {
         rawInsertTestLocationRows(context,12345,"south Pole",46.7488,129.353);
         rawInsertTestLocationRows(context,6411,"hubli",15.35,75.17);
 
-        rawInsertTestWeatherRows(context,3,1419033600L, 1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
+        rawInsertTestWeatherRows(context,2,1419033600L, 1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
 
         logAllTableRows(context);
 
@@ -184,7 +232,7 @@ public class WeatherContract {
         weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED, column9);//5.5
         weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID, column10);//321
         //Insert ContentValues into database and get a row ID back
-        weatherRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, weatherValues);
+        weatherRowId = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, weatherValues);
         // Verify we got a row back.
         if(weatherRowId != -1) Log.i("Db","weather table row added "+weatherRowId);
         else Log.i("Db","adding row failed location table");
@@ -200,12 +248,13 @@ public class WeatherContract {
 
         Log.i("Db", "Location Rows*************");
         c = db.rawQuery("SELECT * FROM location", null);
-        temp=new StringBuffer();
+
 
         if (c.moveToFirst()) {
             Log.i("Db", c.getString(0));
         }
         do {
+            temp=new StringBuffer();
             for(int i=0;i<=4;i++)
                 temp.append(" "+c.getString(i));
             Log.i("Db", temp.toString());
@@ -213,12 +262,13 @@ public class WeatherContract {
 
         Log.i("Db", "Weather Rows*************");
         c = db.rawQuery("SELECT * FROM weather", null);
-        temp=new StringBuffer();
+
 
         if (c.moveToFirst()) {
             Log.i("Db", c.getString(0));
         }
         do {
+            temp=new StringBuffer();
             for(int i=0;i<=4;i++)
                 temp.append(" "+c.getString(i));
             Log.i("Db", temp.toString());
