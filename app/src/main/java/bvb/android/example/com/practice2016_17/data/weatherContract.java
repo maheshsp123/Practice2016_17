@@ -144,6 +144,14 @@ public class WeatherContract {
                     .appendPath(Long.toString(normalizeDate(date))).build();
         }
 
+        public static String getLocationSettingFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+        public static long getDateFromUri(Uri uri) {
+            return Long.parseLong(uri.getPathSegments().get(2));
+        }
+
         public static void logAllMembersAndFunctionsValues(){
             Log.i("","weatherEntry class---------");
             Log.i("CONTENT_URI =",""+CONTENT_URI.toString());
@@ -169,6 +177,8 @@ public class WeatherContract {
         int julianDay = Time.getJulianDay(startDate, time.gmtoff);
         return time.setJulianDay(julianDay);
     }
+
+
 
     public static void logAllMembersAndFunctionsValues(){
         Log.i("","WeatherContract class******");

@@ -34,6 +34,12 @@
         <activity android:name=".lp_minor1_1c_Activity" />
         <activity android:name=".DbTest1Activity" />
         <activity android:name=".contentProviderTest1Activity"></activity>
+
+        <provider
+            android:authorities="bvb.android.example.com.practice2016_17"
+            android:name=".data.WeatherProvider"
+            android:exported="false"
+            android:syncable="true" />
     </application>
 
 </manifest>
