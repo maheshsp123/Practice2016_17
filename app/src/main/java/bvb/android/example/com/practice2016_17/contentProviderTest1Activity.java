@@ -22,7 +22,7 @@ public class contentProviderTest1Activity extends AppCompatActivity {
         WeatherContract.rawInsertTestRows(getApplicationContext());
 
         Uri uri=WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                "6411", 1419033600L);
+                "6411",1419033600L);// December 20th, 2014 is 1419033600L new Date(2014,12,20)
         Log.i("contentActivity",uri.toString());
         Cursor c=getContentResolver().query(
                 uri,
