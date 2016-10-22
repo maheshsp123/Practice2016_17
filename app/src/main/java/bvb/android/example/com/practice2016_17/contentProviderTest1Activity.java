@@ -34,13 +34,15 @@ public class contentProviderTest1Activity extends AppCompatActivity {
         StringBuffer temp;
         if (c.moveToFirst()) {
             Log.i("Db", "content provider row obtained");
-        }else Log.i("Db", "content provider failed");
-        do {
-            temp=new StringBuffer();
-            for(int i=0;i<=4;i++)
-                temp.append(" "+c.getString(i));
-            Log.i("Db", temp.toString());
-        } while (c.moveToNext());
+            do {
+                temp=new StringBuffer();
+                for(int i=0;i<c.getColumnCount();i++)
+                    temp.append(" "+c.getString(i));
+                Log.i("Db", temp.toString());
+            } while (c.moveToNext());
+        }else
+            Log.i("Db", "content provider failed");
+
 
 
 

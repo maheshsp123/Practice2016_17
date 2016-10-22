@@ -6,6 +6,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 //import android.support.annotation.Nullable;
 
 /**
@@ -77,19 +78,21 @@ public class WeatherProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        return false;
+        mOpenHelper = new WeatherDbHelper(getContext());
+        return true;
     }
 
 
     private Cursor getWeatherByLocationSettingAndDate(
             Uri uri, String[] projection, String sortOrder) {
+        Log.i("cp", "getWeatherByLocationSettingAndDate() ");
         String locationSetting = WeatherContract.WeatherEntry.getLocationSettingFromUri(uri);
         long date = WeatherContract.WeatherEntry.getDateFromUri(uri);
-
+        Log.i("cp", "  "+locationSetting+" "+date);
         return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 sLocationSettingAndDaySelection,
-                new String[]{locationSetting, Long.toString(date)},
+                new String[]{locationSetting, Long.toString(1419033600L)},
                 null,
                 null,
                 sortOrder
@@ -101,22 +104,24 @@ public class WeatherProvider extends ContentProvider {
                         String sortOrder) {
         // Here's the switch statement that, given a URI, will determine what kind of request it is,
         // and query the database accordingly.
-        Cursor retCursor;
+        Log.i("cp", "content provider query method");
+        Cursor retCursor=null;
         switch (sUriMatcher.match(uri)) {
             // "weather/*/*"
             case WEATHER_WITH_LOCATION_AND_DATE:
             {
+                Log.i("cp", "content provider query matched "+uri.toString());
                 retCursor = getWeatherByLocationSettingAndDate(uri, projection, sortOrder);
                 break;
             }
             // "weather/*"
-            case WEATHER_WITH_LOCATION: /*{
-                retCursor = getWeatherByLocationSetting(uri, projection, sortOrder);
+            case WEATHER_WITH_LOCATION: {
+                //retCursor = getWeatherByLocationSetting(uri, projection, sortOrder);
                 break;
-            }*/
+            }
             // "weather"
-            case WEATHER: /*{
-                retCursor = mOpenHelper.getReadableDatabase().query(
+            case WEATHER: {
+               /* retCursor = mOpenHelper.getReadableDatabase().query(
                         WeatherContract.WeatherEntry.TABLE_NAME,
                         projection,
                         selection,
@@ -124,12 +129,12 @@ public class WeatherProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder
-                );
+                );*/
                 break;
-            }*/
+            }
             // "location"
-            case LOCATION: /*{
-                retCursor = mOpenHelper.getReadableDatabase().query(
+            case LOCATION: {
+                /*retCursor = mOpenHelper.getReadableDatabase().query(
                         WeatherContract.LocationEntry.TABLE_NAME,
                         projection,
                         selection,
@@ -137,9 +142,9 @@ public class WeatherProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder
-                );
+                );*/
                 break;
-            }*/
+            }
 
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
