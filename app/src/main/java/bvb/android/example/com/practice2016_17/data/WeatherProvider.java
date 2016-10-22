@@ -6,7 +6,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+//import android.support.annotation.Nullable;
 
 /**
  * Created by admin on 19-10-2016.
@@ -169,7 +169,7 @@ public class WeatherProvider extends ContentProvider {
         }
     }
 
-    @Nullable
+
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         return null;
