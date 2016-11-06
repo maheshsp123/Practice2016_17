@@ -22,10 +22,12 @@ public class WeatherProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private WeatherDbHelper mOpenHelper;
 
-    private static final SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder;
+    private static final SQLiteQueryBuilder
+            sWeatherByLocationSettingQueryBuilder;
 
     static{
-        sWeatherByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
+        sWeatherByLocationSettingQueryBuilder =
+                new SQLiteQueryBuilder();
 
         //This is an inner join which looks like
         //weather INNER JOIN location ON weather.location_id = location._id
@@ -61,11 +63,17 @@ public class WeatherProvider extends ContentProvider {
         final String authority = WeatherContract.CONTENT_AUTHORITY;
 
         // For each type of URI you want to add, create a corresponding code.
-        matcher.addURI(authority, WeatherContract.PATH_WEATHER, WEATHER);
-        matcher.addURI(authority, WeatherContract.PATH_WEATHER + "/*", WEATHER_WITH_LOCATION);
-        matcher.addURI(authority, WeatherContract.PATH_WEATHER + "/*/#", WEATHER_WITH_LOCATION_AND_DATE);
+        matcher.addURI(authority,
+                WeatherContract.PATH_WEATHER, WEATHER);
+        matcher.addURI(authority,
+                WeatherContract.PATH_WEATHER + "/*",
+                WEATHER_WITH_LOCATION);
+        matcher.addURI(authority,
+                WeatherContract.PATH_WEATHER + "/*/#",
+                WEATHER_WITH_LOCATION_AND_DATE);
 
-        matcher.addURI(authority, WeatherContract.PATH_LOCATION, LOCATION);
+        matcher.addURI(authority, WeatherContract.PATH_LOCATION,
+                LOCATION);
         return matcher;
     }
 
@@ -92,7 +100,7 @@ public class WeatherProvider extends ContentProvider {
         return sWeatherByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
                 sLocationSettingAndDaySelection,
-                new String[]{locationSetting, Long.toString(1419033600L)},
+                new String[]{locationSetting, Long.toString(date)},
                 null,
                 null,
                 sortOrder

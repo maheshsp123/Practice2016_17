@@ -11,6 +11,8 @@ import android.provider.BaseColumns;
 import android.text.format.Time;
 import android.util.Log;
 
+import java.util.Date;
+
 /**
  * Created by msp on 03-Oct-16.
  */
@@ -198,7 +200,9 @@ public class WeatherContract {
         rawInsertTestLocationRows(context,12345,"south Pole",46.7488,129.353);
         rawInsertTestLocationRows(context,6411,"hubli",15.35,75.17);
 
-        rawInsertTestWeatherRows(context,2,1419033600L, 1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
+        rawInsertTestWeatherRows(context,2,
+                normalizeDate( new Date(2014,12,20).getTime() ),
+                1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
 
         logAllTableRows(context);
 
