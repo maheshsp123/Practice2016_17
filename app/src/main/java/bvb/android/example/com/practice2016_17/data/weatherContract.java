@@ -154,6 +154,14 @@ public class WeatherContract {
             return Long.parseLong(uri.getPathSegments().get(2));
         }
 
+        public static long getStartDateFromUri(Uri uri) {
+            String dateString = uri.getQueryParameter(COLUMN_DATE);
+            if (null != dateString && dateString.length() > 0)
+                return Long.parseLong(dateString);
+            else
+                return 0;
+        }
+
         public static void logAllMembersAndFunctionsValues(){
             Log.i("","weatherEntry class---------");
             Log.i("CONTENT_URI =",""+CONTENT_URI.toString());

@@ -30,6 +30,7 @@ public class ListViewActivity extends AppCompatActivity {
             arrayList.add("FragmentDemoActivity");            arrayList.add("LP_minor1_2c");
             arrayList.add("lp_minor1_1c_Activity");     arrayList.add("DbTest1Activity");
             arrayList.add("httpRequestActivity");   arrayList.add("contentProviderTest1Activity");
+            arrayList.add("DataBinding1Activity");
         arrayAdapter=new ArrayAdapter<String>
                     (this,R.layout.listview_item2,R.id.listItemId2,arrayList);
 
