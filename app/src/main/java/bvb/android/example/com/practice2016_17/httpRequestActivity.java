@@ -1,10 +1,9 @@
 package bvb.android.example.com.practice2016_17;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,6 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class httpRequestActivity extends AppCompatActivity {
 
@@ -64,7 +65,7 @@ public class httpRequestActivity extends AppCompatActivity {
                         .appendQueryParameter("mode", "json")
                         .appendQueryParameter("units", "metric")
                         .appendQueryParameter("cnt", "14")
-                        .appendQueryParameter("APPID", "111111111111111111111111")
+                        .appendQueryParameter("APPID", "111111111111111111111111111111")//replace your API key here
                         .build();
 
                 URL url = new URL(builtUri.toString());
@@ -136,6 +137,7 @@ public class httpRequestActivity extends AppCompatActivity {
             }
 
             weatherDataTextView_ref.setText(weatherDisplayTextArray[0]+"/n"+weatherDisplayTextArray[1]);
+            Log.i("forecast","LOC_KEY, DATE, DEGREES, HUMIDITY, PRESSURE, MAX_TEMP, MIN_TEMP, SHORT_DESC, WINDSPED, WETH_ID");
             for(String s:weatherDisplayTextArray){
                 Log.i("forecast",s);
             }
@@ -177,8 +179,20 @@ public class httpRequestActivity extends AppCompatActivity {
         String[] resultStrs = new String[numDays];
         for(int i = 0; i < weatherArray.length(); i++) {
             // For now, using the format "Day, description, hi/low"
-            String day;
+            //COLUMN_LOC_KEY, COLUMN_DATE, COLUMN_DEGREES, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_MAX_TEMP,
+            // COLUMN_MIN_TEMP, COLUMN_SHORT, WIND_SPED, WEATHER_ID
+            long dateTime;
+            int degree;
+            int humidity;
+            double pressure;
+            double maxTemperature;
+            double minTemperature;
             String description;
+            double windSpeed;
+            int weather_id;
+
+
+            String day;
             String highAndLow;
 
             // Get the JSON object representing the day
@@ -187,11 +201,17 @@ public class httpRequestActivity extends AppCompatActivity {
             // The date/time is returned as a long.  We need to convert that
             // into something human-readable, since most people won't read "1400356800" as
             // "this saturday".
-            long dateTime;
-            // Cheating to convert this to UTC time, which is what we want anyhow
-            dateTime = dayTime.setJulianDay(julianStartDay+i);
-            //day = getReadableDateString(dateTime);
-            day =dayTime.toString();
+
+            degree=dayForecast.getInt("deg");
+            humidity=dayForecast.getInt("humidity");
+            pressure=dayForecast.getDouble("pressure");
+            windSpeed=dayForecast.getDouble("speed");
+
+
+
+            dateTime = dayForecast.getLong("dt");
+            day = getReadableDateString(dateTime);
+            //day =dayTime.toString();
 
             // description is in a child array called "weather", which is 1 element long.
             JSONObject weatherObject = dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
@@ -202,13 +222,37 @@ public class httpRequestActivity extends AppCompatActivity {
             JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
             double high = temperatureObject.getDouble(OWM_MAX);
             double low = temperatureObject.getDouble(OWM_MIN);
+            weather_id=dayForecast.getJSONArray("weather").getJSONObject(0).getInt("id");
 
-            //highAndLow = formatHighLows(high, low);
-            highAndLow = high+"/"+low;
-            resultStrs[i] = day + " - " + description + " - " + highAndLow;
+            highAndLow = formatHighLows(high, low);
+
+            maxTemperature=high;
+            minTemperature=low;
+            //highAndLow = high+"/"+low;
+            resultStrs[i] = day + " - " + degree + " - " + humidity+" - "+pressure+" - "+maxTemperature+" - "+minTemperature+" - "+description+" - "+windSpeed+" - "+weather_id;
         }
 
         return resultStrs;
+    }
+
+    private String getReadableDateString(long time){
+        // Because the API returns a unix timestamp (measured in seconds),
+        // it must be converted to milliseconds in order to be converted to valid date.
+        Date date = new Date(time * 1000);
+        SimpleDateFormat format = new SimpleDateFormat("E, MMM d");
+        return format.format(date).toString();
+    }
+
+    /**
+     * Prepare the weather high/lows for presentation.
+     */
+    private String formatHighLows(double high, double low) {
+        // For presentation, assume the user doesn't care about tenths of a degree.
+        long roundedHigh = Math.round(high);
+        long roundedLow = Math.round(low);
+
+        String highLowStr = roundedHigh + "/" + roundedLow;
+        return highLowStr;
     }
 
 }

@@ -200,9 +200,24 @@ public class WeatherContract {
         rawInsertTestLocationRows(context,12345,"south Pole",46.7488,129.353);
         rawInsertTestLocationRows(context,6411,"hubli",15.35,75.17);
 
+        //COLUMN_LOC_KEY, COLUMN_DATE, COLUMN_DEGREES, COLUMN_HUMIDITY, COLUMN_PRESSURE, COLUMN_MAX_TEMP, COLUMN_MIN_TEMP, COLUMN_SHORT_DESC
         rawInsertTestWeatherRows(context,2,
                 normalizeDate( new Date(2014,12,20).getTime() ),
                 1.1, 1.2, 1.3, 75, 65, "Asteroids",5.5, 321);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,7).getTime() ),45, 30, 963.36, 33, 22, "Clear",3.61, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,8).getTime() ),66, 24, 963.88, 31, 18, "Clear",4.3, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,9).getTime() ),87, 25, 964.75, 31, 14, "Clear",3.35, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,10).getTime() ),83, 0, 965.26, 31, 14, "Clear",2.48, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,11).getTime() ),208, 0, 964.3, 31, 14, "Clear",1.02, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,12).getTime() ),200, 0, 964.43, 31, 14, "Clear",0.5, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,13).getTime() ),0, 0, 964.53, 31, 15, "Clear",0, 800);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,14).getTime() ),169, 0, 966.39, 31, 18, "Rain",2.02, 500);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,15).getTime() ),82, 0, 966.3, 30, 21, "Rain",3.02, 501);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,16).getTime() ),80, 0, 966.7, 28, 20, "Rain",4.73, 500);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,17).getTime() ),88, 0, 965.61, 29, 22, "Rain",4.67, 500);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,18).getTime() ),92, 0, 964.37, 28, 20, "Rain",4.5, 501);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,19).getTime() ),100, 0, 964.37, 27, 20, "Rain",5.7, 501);
+        rawInsertTestWeatherRows(context,2,normalizeDate( new Date(2016,11,20).getTime() ),108, 0, 965.74, 28, 21, "Rain",4.76, 500);
 
         logAllTableRows(context);
 
